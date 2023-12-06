@@ -16,7 +16,19 @@ function init() {
   
   var guardaryeditar = (e)=>{
       e.preventDefault();
-      var formData = new FormData($("#form_motos")[0]);
+      const Marca = document.getElementById("Marca").value;
+      const Modelo = document.getElementById("Modelo").value;
+      const Ano = document.getElementById("Ano").value;
+      const Color = document.getElementById("Color").value;
+      const Precio = document.getElementById("Precio").value;
+      const Estado = document.getElementById("Estado").value;
+      var formData = new FormData(e.target);
+      formData.append("Marca",Marca);
+      formData.append("Modelo",Modelo);
+      formData.append("Ano",Ano);
+      formData.append("Color",Color);
+      formData.append("Precio",Precio);
+      formData.append("Estado",Estado);
       var motos = new Motos_Model('','','','','','','',formData,'insertar');
       motos.insertar();
   }

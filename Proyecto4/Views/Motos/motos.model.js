@@ -6,8 +6,9 @@ class Motos_Model {
     Ano,
     Color, 
     Precio, 
-    Estado, 
+    Estado,
     Ruta
+    
   ) {
     this.ID_Moto = ID_Moto;
     this.Marca = Marca;
@@ -18,11 +19,11 @@ class Motos_Model {
     this.Estado = Estado;
     this.Ruta = Ruta;
     
+    
   }
   todos() {
     var html = "";
-    $.get("../../Controllers/motos.controller.php?op=" + this.Ruta,(res) => {
-      res = JSON.parse(res);
+    $.get("../../Controllers/motos.controller.php?op=todos" ,(res) => {res = JSON.parse(res);
       $.each(res, (index, valor) => {
         var fondo;
         if(valor.Estado == "Nueva") fondo ="bg-success"
@@ -57,12 +58,10 @@ class Motos_Model {
   }
 
   insertar() {
-    var dato = new FormData();
-    dato = this.data;
    $.ajax({
     url: "../../Controllers/motos.controller.php?op=insertar",
     type: "POST",
-    data: dato,
+    data : this.Ruta,
     contentType: false,
     processData: false,
     success: function (res) {
@@ -76,8 +75,8 @@ class Motos_Model {
     }
     
    });
-   
-   this.limpia_Cajas();    
+   this.todos()
+   //this.limpia_Cajas(); 
   }
 
 
