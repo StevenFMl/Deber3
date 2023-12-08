@@ -140,7 +140,7 @@ eliminar() {
             try {
                 res = JSON.parse(res);
                 if (res === "ok") {
-                    Swal.fire("remotos", "Motos Eliminado", "success");
+                    Swal.fire("Moto", "Moto Eliminado", "success");
                     todos();
                 } else {
                     Swal.fire("Error", res, "error");
