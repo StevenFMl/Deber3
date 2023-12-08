@@ -63,7 +63,7 @@ class Clase_Motos
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "delete from usuarios where ID_Moto=$ID_Moto";
+            $cadena = "delete from remotos where ID_Moto=$ID_Moto";
             $result = mysqli_query($con, $cadena);
             return "ok";
         } catch (Throwable $th) {
@@ -72,5 +72,4 @@ class Clase_Motos
             $con->close();
         }
     }
-    
-    }
+}

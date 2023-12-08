@@ -58,10 +58,12 @@ class Motos_Model {
   }
 
   insertar() {
+    var dato = new FormData();
+    dato = this.Ruta;
    $.ajax({
     url: "../../Controllers/motos.controller.php?op=insertar",
     type: "POST",
-    data : this.Ruta,
+    data : dato,
     contentType: false,
     processData: false,
     success: function (res) {
@@ -75,10 +77,119 @@ class Motos_Model {
     }
     
    });
-   this.todos()
+   this.limpia_Cajas()
    //this.limpia_Cajas(); 
   }
+  uno() {
+    var ID_Moto = this.ID_Moto;
+    $.post(
+      "../../Controllers/motos.controller.php?op=uno",
+      { ID_Moto: ID_Moto },
+      (res) => {
+        console.log(res);
+        res = JSON.parse(res);
+        $("#ID_Moto").val(res.ID_Moto);
+        $("#Marca").val(res.Marca);
+        $("#Modelo").val(res.Modelo);
+        $("#Ano").val(res.Ano);
+        $("#Color").val(res.Color);
+        $("#Precio").val(res.Precio);
 
+        document.getElementById("Estado").value = res.Estado; //asiganr al select el valor
+      }
+    );
+    $("#Modal_motos").modal("show");
+  }
+  editar() {
+    var dato = new FormData();
+    dato = this.Ruta;
+    $.ajax({  url: "../../Controllers/motos.controller.php?op=actualizar",
+      type: "POST",
+      data: dato,
+      contentType: false,
+      processData: false,
+      success: function (res) {
+        res = JSON.parse(res);
+        if (res === "ok") {
+          Swal.fire("motos", "Moto Registrada", "success");
+          todos();
+        } else {
+          Swal.fire("Error", res, "error");
+        }
+      
+  }
+  });
+  this.limpia_Cajas();
+}
+eliminar() {
+  var ID_Moto = this.ID_Moto;
+
+  Swal.fire({ title: "Motos", text: "Esta seguro de eliminar el Motos",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Eliminar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.post(
+        "../../Controllers/motos.controller.php?op=eliminar",
+        { ID_Moto: ID_Moto },
+        (res) => {
+            console.log(res);
+            try {
+                res = JSON.parse(res);
+                if (res === "ok") {
+                    Swal.fire("remotos", "Motos Eliminado", "success");
+                    todos();
+                } else {
+                    Swal.fire("Error", res, "error");
+                }
+            } catch (error) {
+                console.error("Error al parsear la respuesta como JSON:", error);
+                // Manejar la respuesta que no es JSON, por ejemplo, mostrarla en algún lugar
+            }
+        }
+    );
+    }
+  });
+  this.limpia_Cajas();
+}
+
+/*eliminar() {
+  var ID_Moto = this.ID_Moto;
+
+  Swal.fire({ title: "Motos", text: "Esta seguro de eliminar el Motos",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Eliminar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.post(
+        "../../Controllers/motos.controller.php?op=eliminar",
+        { ID_Moto: ID_Moto },
+        (res) => {
+            console.log(res);
+            try {
+                res = JSON.parse(res);
+                if (res === "ok") {
+                    Swal.fire("remotos", "Motos Eliminado", "success");
+                    todos();
+                } else {
+                    Swal.fire("Error", res, "error");
+                }
+            } catch (error) {
+                console.error("Error al parsear la respuesta como JSON:", error);
+                // Manejar la respuesta que no es JSON, por ejemplo, mostrarla en algún lugar
+            }
+        }
+    );
+    }
+  });
+  this.limpia_Cajas();
+}*/
 
   limpia_Cajas(){
     document.getElementById("Marca").value = "";
@@ -86,6 +197,8 @@ class Motos_Model {
     document.getElementById("Ano").value = "";
     document.getElementById("Color").value = "";
     document.getElementById("Precio").value = "";
+    $("#ID_Moto").val("");
     $("#Modal_motos").modal("hide");
   }
 }
+

@@ -44,12 +44,12 @@ switch ($_GET["op"]) {
         $datos = $usuarios->actualizar($UsuarioId, $Cedula, $Nombres, $Apellidos, $Telefono, $Contrasenia, $Correo, $Rol); //llamo al modelo de usuarios e invoco al procedimiento actual
         echo json_encode($datos); //devuelvo el arreglo en formato json
         break;
-    case 'eliminar':
-        $UsuarioId = $_POST["UsuarioId"]; //defino una variable para almacenar el id del usuario, la variable se obtiene mediante POST
-        $datos = array(); //defino un arreglo
-        $datos = $usuarios->eliminar($UsuarioId); //llamo al modelo de usuarios e invoco al procedimiento uno y almaceno en una variable
-        echo json_encode($uno); //devuelvo el arreglo en formato json
-        break;
+        case 'eliminar':
+            $UsuarioId = $_POST["UsuarioId"]; //defino una variable para almacenar el id del usuario, la variable se obtiene mediante POST
+            $datos = array(); //defino un arreglo
+            $datos = $usuarios->eliminar($UsuarioId); //llamo al modelo de usuarios e invoco al procedimiento uno y almaceno en una variable
+            echo json_encode($datos); //devuelvo el arreglo en formato json
+            break;
     case 'actualizar_contrasenia':
         $UsuarioId = $_POST["UsuarioId"];
         $Contrasenia = $_POST["Contrasenia"];

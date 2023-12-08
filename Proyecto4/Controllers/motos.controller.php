@@ -42,10 +42,11 @@ switch ($_GET["op"]) {
         $datos = $motos->actualizar($ID_Moto, $Marca, $Modelo, $Ano, $Color, $Precio, $Estado); 
         echo json_encode($datos); 
         break;
-    case 'eliminar':
-        $ID_Moto = $_POST["ID_Moto"]; 
-        $datos = array(); 
-        $datos = $motos->eliminar($ID_Moto); 
-        echo json_encode($uno); 
-        break;
+        
+        case 'eliminar':
+            $ID_Moto = $_POST["ID_Moto"]; //defino una variable para almacenar el id del usuario, la variable se obtiene mediante POST
+            $datos = array(); //defino un arreglo
+            $datos = $motos->eliminar($ID_Moto); //llamo al modelo de usuarios e invoco al procedimiento uno y almaceno en una variable
+            echo json_encode($datos); //devuelvo el arreglo en formato json
+            break;
 }

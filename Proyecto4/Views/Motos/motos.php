@@ -68,6 +68,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                <input type="text" name="ID_Moto" id="ID_Moto">
+
                 <div class="form-group">
                         <label for="Marca">Marca</label>
                         <input type="text" class="form-control" id="Marca" name="Marca" placeholder="Marca" required>
